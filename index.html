@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>小红书舞蹈出道夜 · 现场Report补给站</title>
+<style>
+  html { scroll-behavior:smooth; }
+  .card { scroll-margin-top:56px; }
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+    background: radial-gradient(ellipse 120% 50% at 50% -8%, #1b2a52 0%, #0a1024 34%, #050814 100%);
+    background-color:#050814;
+    color:#e8ecf6; line-height:1.65; padding-bottom:120px;
+    min-height:100vh;
+  }
+  /* 星点装饰 */
+  .stars { position:fixed; inset:0; pointer-events:none; z-index:0; }
+  .hero { text-align:center; padding:30px 20px 8px; color:#fff; position:relative; z-index:1; }
+  .hero .tag {
+    display:inline-block; background:#ff2442; color:#fff;
+    font-size:12px; padding:4px 16px; border-radius:999px; letter-spacing:3px; margin-bottom:16px;
+    box-shadow:0 0 14px rgba(255,36,66,.5);
+  }
+  .hero h1 {
+    font-size:27px; font-weight:900; letter-spacing:2px; color:#fff;
+    text-shadow:0 0 12px rgba(255,255,255,.85), 0 0 28px rgba(190,215,255,.55);
+  }
+  .hero h1 .em {
+    background:linear-gradient(180deg,#fff,#bcd4ff); -webkit-background-clip:text; background-clip:text; color:transparent;
+    text-shadow:none; filter:drop-shadow(0 0 10px rgba(190,215,255,.8));
+  }
+  .hero .sub { font-size:13px; color:rgba(255,255,255,.62); margin-top:10px; letter-spacing:1px; }
+  .hero .divider { margin:16px auto 0; width:70%; height:1px;
+    background:linear-gradient(90deg,transparent,rgba(190,215,255,.55),transparent); }
+  .bonus {
+    margin:16px 16px 0; position:relative; z-index:1;
+    background:rgba(255,255,255,.06); border:1px solid rgba(190,215,255,.28); color:#ffe9c8;
+    border-radius:14px; padding:12px 16px; font-size:13.5px; font-weight:600;
+    box-shadow:0 0 20px rgba(150,180,255,.12) inset; backdrop-filter:blur(4px);
+  }
+  .bonus b { color:#ffd86e; text-shadow:0 0 8px rgba(255,216,110,.5); }
+  .nav {
+    position:sticky; top:0; z-index:10;
+    background:rgba(5,8,20,.94); backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(150,180,255,.15);
+    padding:10px 14px 12px;
+    margin-top:18px;
+  }
+  .nav .nav-title {
+    text-align:center; font-size:12.5px; font-weight:700; color:rgba(255,255,255,.55);
+    letter-spacing:2px; margin-bottom:9px;
+  }
+  .nav .nav-title b { color:#ffd44d; }
+  .nav .nav-row {
+    display:flex; gap:6px; justify-content:center; flex-wrap:nowrap;
+  }
+  .nav a {
+    flex:1 1 0; min-width:0; text-decoration:none; text-align:center;
+    color:rgba(255,255,255,.88); font-size:14px; font-weight:800;
+    padding:12px 2px; border-radius:14px;
+    background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14);
+    white-space:nowrap; letter-spacing:0;
+    overflow:hidden; text-overflow:ellipsis;
+  }
+  .nav a:active { transform:scale(.95); }
+  .nav a.on {
+    color:#fff; background:linear-gradient(135deg,#ff2442,#ff5b74);
+    border-color:transparent; box-shadow:0 0 16px rgba(255,36,66,.55);
+  }
+  .wrap { max-width:720px; margin:0 auto; padding:0 14px; position:relative; z-index:1; }
+  .card {
+    background:rgba(13,19,40,.78); border:1px solid rgba(150,180,255,.16); border-radius:18px; margin-top:18px;
+    overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,.45);
+  }
+  .card-head { display:flex; align-items:center; gap:10px; padding:16px 16px 12px; }
+  .angle-num {
+    flex-shrink:0; width:40px; height:40px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(135deg,#ff2442,#ff5b74); color:#fff; font-weight:800; font-size:17px;
+    box-shadow:0 0 12px rgba(255,36,66,.45);
+  }
+  .card-head h2 { font-size:17.5px; font-weight:800; color:#fff; }
+  .card-head .req { font-size:12px; color:rgba(255,255,255,.55); margin-top:2px; }
+  .card-body { padding:0 16px 16px; }
+  .sec-label {
+    display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:700; color:#ff7d92;
+    margin:14px 0 8px; letter-spacing:.5px;
+  }
+  .sec-label::before { content:""; width:4px; height:14px; border-radius:2px; background:#ff2442; display:inline-block;
+    box-shadow:0 0 6px rgba(255,36,66,.7); }
+  .video-box { border-radius:12px; overflow:hidden; background:#000; border:1px solid rgba(150,180,255,.14); }
+  .video-box video { width:100%; display:block; max-height:70vh; object-fit:contain; }
+  .video-caption { font-size:11.5px; color:rgba(255,255,255,.5); margin-top:6px; }
+  .tips { font-size:13.5px; color:rgba(255,255,255,.82); background:rgba(255,255,255,.05);
+    border-radius:12px; padding:10px 12px; border:1px solid rgba(255,255,255,.07); }
+  .tips b { color:#bcd4ff; }
+  .tips ul { padding-left:18px; margin-top:4px; }
+  .tips li { margin:3px 0; }
+  .imgs { display:grid; grid-template-columns:1fr; gap:8px; }
+  .imgs img { width:100%; border-radius:10px; display:block; border:1px solid rgba(150,180,255,.18); }
+  .title-item {
+    display:flex; align-items:center; justify-content:space-between; gap:8px;
+    background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.09); border-radius:10px;
+    padding:9px 12px; margin-bottom:7px; font-size:14px; color:rgba(255,255,255,.92);
+  }
+  .copy-mini {
+    flex-shrink:0; border:none; background:rgba(255,36,66,.16); color:#ff7d92; font-size:12px; font-weight:600;
+    padding:5px 12px; border-radius:999px; cursor:pointer; border:1px solid rgba(255,36,66,.35);
+  }
+  .copy-mini:active { opacity:.7; }
+  .caption-block {
+    border:1px solid rgba(190,215,255,.28); border-radius:12px; padding:12px 14px; margin-bottom:10px;
+    background:rgba(255,255,255,.04);
+  }
+  .caption-block .cap-tag { font-size:11px; color:#ff7d92; font-weight:700; margin-bottom:6px; letter-spacing:1px; }
+  .caption-block p { font-size:14px; color:rgba(255,255,255,.92); white-space:pre-wrap; }
+  .btn-row { display:flex; gap:10px; margin-top:10px; }
+  .btn {
+    flex:1; border:none; border-radius:12px; padding:11px 0; font-size:14.5px; font-weight:700; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; gap:6px;
+  }
+  .btn-copy { background:transparent; color:#cfe0ff; border:1.5px solid rgba(190,215,255,.5); }
+  .btn-go { background:linear-gradient(135deg,#ff2442,#ff5b74); color:#fff;
+    box-shadow:0 0 18px rgba(255,36,66,.5); }
+  .btn:active { transform:scale(.97); }
+  .topic-chips { margin:10px 0 4px; display:flex; gap:8px; flex-wrap:wrap; }
+  .topic-chip {
+    flex:1; min-width:200px; display:flex; align-items:center; justify-content:space-between; gap:6px;
+    padding:11px 14px; border-radius:12px; cursor:pointer; font-size:14.5px; font-weight:800;
+    color:#ffd44d; background:rgba(255,212,77,.1); border:1.5px solid rgba(255,212,77,.45);
+    text-shadow:0 0 8px rgba(255,212,77,.4);
+  }
+  .topic-chip:active { transform:scale(.97); }
+  .topic-chip .copy-mini { background:rgba(255,212,77,.18); color:#ffd44d; border-color:rgba(255,212,77,.4); }
+  .publish-bar {
+    position:fixed; bottom:0; left:0; right:0; z-index:5;
+    padding:12px 14px calc(12px + env(safe-area-inset-bottom));
+    background:rgba(5,8,20,.92); backdrop-filter:blur(10px); border-top:1px solid rgba(150,180,255,.18);
+    display:flex; align-items:center; gap:12px;
+  }
+  .publish-bar .hint { flex:1; font-size:12.5px; color:rgba(255,255,255,.55); }
+  .publish-bar .hint b { color:#ffd44d; }
+  .btn-big {
+    flex-shrink:0; background:linear-gradient(135deg,#ff2442,#ff5b74); color:#fff; border:none;
+    padding:12px 22px; border-radius:999px; font-size:15px; font-weight:800; cursor:pointer;
+    box-shadow:0 0 20px rgba(255,36,66,.55);
+  }
+  .btn-big:active { transform:scale(.96); }
+  .toast {
+    position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
+    background:rgba(255,255,255,.95); color:#0a1024; font-size:14px; font-weight:600;
+    padding:12px 22px; border-radius:12px; opacity:0; pointer-events:none; transition:opacity .25s; z-index:99;
+    text-align:center; max-width:80vw;
+  }
+  .toast.show { opacity:1; }
+  .foot { text-align:center; font-size:11.5px; color:rgba(255,255,255,.35); margin-top:28px; line-height:2; }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<div class="hero">
+  <div class="tag">DANCE DEBUT NIGHT</div>
+  <h1>小红书舞蹈出道夜<br><span class="em">现场Report补给站</span></h1>
+  <div class="sub">拍完就能发 · 标题文案直接抄 · 一键跳转发布</div>
+  <div class="divider"></div>
+</div>
+
+<div class="bonus">🔥 9月5日活动结束后 <b>24h内</b> 发布，将瓜分百万流量，还有机会获得额外流量券和周边小礼物！</div>
+
+<div class="wrap">
+
+  <!-- 必带双话题（常置顶部） -->
+  <div class="card" id="topic">
+    <div class="card-head">
+      <div class="angle-num" style="background:linear-gradient(135deg,#ffd44d,#ffab3d);box-shadow:0 0 12px rgba(255,212,77,.45)">＃</div>
+      <div>
+        <h2>必带双话题（点击即复制）</h2>
+        <div class="req">发布笔记时带上这两个话题 + @舞蹈薯，才能被活动看到哦</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="topic-chips">
+        <div class="topic-chip" onclick="copyText(this,'#小红书舞蹈出道夜')">
+          <span>#小红书舞蹈出道夜</span><button class="copy-mini">复制</button>
+        </div>
+      </div>
+      <div class="topic-chips" style="margin-top:8px;">
+        <div class="topic-chip" onclick="copyText(this,'#出道吧校园Dancer')">
+          <span>#出道吧校园Dancer</span><button class="copy-mini">复制</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 四大内容角度切换 -->
+  <nav class="nav" id="tabNav">
+    <div class="nav-title">✨ 官方提供 <b>4大内容角度</b> · 点击切换 ✨</div>
+    <div class="nav-row">
+      <a href="javascript:void(0)" data-tab="angle1" class="on">他拍视角</a>
+      <a href="javascript:void(0)" data-tab="angle2">打卡plog</a>
+      <a href="javascript:void(0)" data-tab="angle3">随舞直拍</a>
+      <a href="javascript:void(0)" data-tab="angle4">challenge</a>
+    </div>
+  </nav>
+
+  <!-- 角度1 -->
+  <div class="card tab-panel" id="angle1">
+    <div class="card-head">
+      <div class="angle-num">01</div>
+      <div>
+        <h2>舞台表演 · 他拍视角</h2>
+        <div class="req">带双话题 #小红书舞蹈出道夜 #出道吧校园Dancer 并 @舞蹈薯</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="sec-label">视频范例（可直接播放）</div>
+      <div class="video-box"><video controls playsinline webkit-playsinline preload="metadata" src="v1.mp4"></video></div>
+      <div class="video-caption">范例：台下他拍直拍视角</div>
+      <div class="sec-label">怎么拍</div>
+      <div class="tips">
+        <b>他拍的核心是「视角的稀缺性」</b>：作者自己发的是"我跳得怎么样"，他拍发的是<b>"我在台下看到的TA"</b>——带观众的呼吸、尖叫和晃动，天然有现场感和安利感。
+        <ul>
+          <li><b>机位</b>：观众席/侧台竖屏手持，全程锁定一组表演；轻微晃动和入镜的观众后脑勺反而更真实</li>
+          <li><b>选段</b>：可以发完整表演，也可以剪最炸的 30–45 秒；现场灯光变化大时，保留灯光效果最佳的部分</li>
+          <li><b>声音</b>：保留现场原声（音乐+隐约的欢呼），比配原曲更有"我在现场"的说服力</li>
+        </ul>
+      </div>
+      <div class="sec-label">标题范例</div>
+      <div class="title-item"><span>我在台下见证XXX出道啦</span><button class="copy-mini" onclick="copyText(this,'我在台下见证XXX出道啦')">复制</button></div>
+      <div class="title-item"><span>决定做XXX的第一批股东，入股不亏！</span><button class="copy-mini" onclick="copyText(this,'决定做XXX的第一批股东，入股不亏！')">复制</button></div>
+      <div class="title-item"><span>没开玩笑 现场感受比屏幕里炸十倍</span><button class="copy-mini" onclick="copyText(this,'没开玩笑 现场感受比屏幕里炸十倍')">复制</button></div>
+      <div class="title-item"><span>来小红书舞蹈出道夜现场送XXX出道啦！</span><button class="copy-mini" onclick="copyText(this,'来小红书舞蹈出道夜现场送XXX出道啦！')">复制</button></div>
+      <div class="title-item"><span>大家快看 我在现场拍到了谁</span><button class="copy-mini" onclick="copyText(this,'大家快看 我在现场拍到了谁')">复制</button></div>
+      <div class="sec-label">文案范例</div>
+      <div class="caption-block">
+        <div class="cap-tag">范例一</div>
+        <p>XX现场直拍大放送，手机先替我激动了📱<br><br>#小红书舞蹈出道夜 #出道吧校园Dancer @舞蹈薯</p>
+        <div class="btn-row">
+          <button class="btn btn-copy" onclick="copyText(this,'XX现场直拍大放送，手机先替我激动了📱\n\n#小红书舞蹈出道夜 #出道吧校园Dancer @舞蹈薯')">复制文案</button>
+          <button class="btn btn-go" onclick="copyAndGo(this,'XX现场直拍大放送，手机先替我激动了📱\n\n#小红书舞蹈出道夜 #出道吧校园Dancer @舞蹈薯')">复制并去发布</button>
+        </div>
+      </div>
+      <div class="caption-block">
+        <div class="cap-tag">范例二</div>
+        <p>喜欢很久的博主XXX终于在小红书出道了！<br><br>#小红书舞蹈出道夜 #出道吧校园Dancer @舞蹈薯</p>
+        <div class="btn-row">
+          <button class="btn btn-copy" onclick="copyText(this,'喜欢很久的博主XXX终于在小红书出道了！\n\n#小红书舞蹈出道夜 #出道吧校园Dancer @舞蹈薯')">复制文案</button>
+          <button class="btn btn-go" onclick="copyAndGo(this,'喜欢很久的博主XXX终于在小红书出道了！\n\n#小红书舞蹈出道夜 #出道吧校园Dancer @舞蹈薯')">复制并去发布</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 角度2 -->
+  <div class="card tab-panel" id="angle2">
+    <div class="card-head">
+      <div class="angle-num">02</div>
+      <div>
+        <h2>现场打卡 plog</h2>
+        <div class="req">带双话题 #小红书舞蹈出道夜 #出道吧校园Dancer 并 @舞蹈薯</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="sec-label">现场打卡点</div>
+      <div class="tips" style="margin-bottom:10px;">
+        现场设置了打卡区域供大家打卡和拍照：
+        <ul>
+          <li><b>亚克力板照片&签名墙</b>：找到自己pick的舞者的照片和签名，一起拍照留念</li>
+          <li><b>风动板</b>：闪光配色嘎嘎出片的背景板</li>
+          <li><b>手持拍摄道具</b>：现场提供，随手一拿就是氛围感</li>
+        </ul>
+      </div>
+      <div class="imgs">
+        <img src="img1.png" alt="亚克力板照片签名墙">
+        <img src="img2.png" alt="风动板">
+        <img src="img3.png" alt="手持拍摄道具">
+      </div>
+      <div class="sec-label">标题范例</div>
+      <div class="title-item"><span>你怎么知道我在小红书舞蹈出道夜成功出道啦！</span><button class="copy-mini" onclick="copyText(this,'你怎么知道我在小红书舞蹈出道夜成功出道啦！')">复制</button></div>
+      <div class="title-item"><span>是谁被小红书官方邀请 来到出道夜现场啦？</span><button class="copy-mini" onclick="copyText(this,'是谁被小红书官方邀请 来到出道夜现场啦？')">复制</button></div>
+      <div class="title-item"><span>重生之我在小红书舞蹈出道夜当见证官</span><button class="copy-mini" onclick="copyText(this,'重生之我在小红书舞蹈出道夜当见证官')">复制</button></div>
+      <div class="sec-label">文案范例</div>
+      <div class="caption-block">
+        <div class="cap-tag">范例一</div>
+        <p>见到我喜欢的舞蹈博主belike：<br><br>#小红书舞蹈出道夜 #出道吧校园Dancer @舞蹈薯</p>
+        <div class="btn-row">
+          <button class="btn btn-copy" onclick="copyText(this,'见到我喜欢的舞蹈博主belike：\n\n#小红书舞蹈出道夜 #出道吧校园Dancer @舞蹈薯')">复制文案</button>
+          <button class="btn btn-go" onclick="copyAndGo(this,'见到我喜欢的舞蹈博主belike：\n\n#小红书舞蹈出道夜 #出道吧校园Dancer @舞蹈薯')">复制并去发布</button>
+        </div>
+      </div>
+      <div class="caption-block">
+        <div class="cap-tag">范例二</div>
+        <p>小红书舞蹈出道夜现场实在太好拍了<br>下次换我出道<br><br>#小红书舞蹈出道夜 #出道吧校园Dancer @舞蹈薯</p>
+        <div class="btn-row">
+          <button class="btn btn-copy" onclick="copyText(this,'小红书舞蹈出道夜现场实在太好拍了\n下次换我出道\n\n#小红书舞蹈出道夜 #出道吧校园Dancer @舞蹈薯')">复制文案</button>
+          <button class="btn btn-go" onclick="copyAndGo(this,'小红书舞蹈出道夜现场实在太好拍了\n下次换我出道\n\n#小红书舞蹈出道夜 #出道吧校园Dancer @舞蹈薯')">复制并去发布</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 角度3 -->
+  <div class="card tab-panel" id="angle3">
+    <div class="card-head">
+      <div class="angle-num">03</div>
+      <div>
+        <h2>随舞直拍</h2>
+        <div class="req">带双话题 #小红书舞蹈出道夜 #出道吧校园Dancer 并 @舞蹈薯</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="sec-label">视频范例（可直接播放）</div>
+      <div class="video-box"><video controls playsinline webkit-playsinline preload="metadata" src="v2.mp4"></video></div>
+      <div class="video-caption">范例：随舞现场氛围</div>
+      <div class="video-box" style="margin-top:8px;"><video controls playsinline webkit-playsinline preload="metadata" src="v3.mp4"></video></div>
+      <div class="video-caption">范例：随舞直拍</div>
+      <div class="sec-label">现场怎么玩</div>
+      <div class="tips" style="margin-bottom:10px;">
+        现场设有<b>两次随舞活动</b>，全场一起蹦跳开嗨！前奏一响就是你的舞台，想一起跳的观众随时加入。官方摄影师会全场记录大家的随舞过程，并提供素材，说不定下一条热门直拍就是你！
+      </div>
+      <div class="sec-label">标题范例</div>
+      <div class="title-item"><span>我在小红书舞蹈出道夜C位出道了</span><button class="copy-mini" onclick="copyText(this,'我在小红书舞蹈出道夜C位出道了')">复制</button></div>
+      <div class="title-item"><span>出道夜随舞现场｜前奏一响，全场都是舞者</span><button class="copy-mini" onclick="copyText(this,'出道夜随舞现场｜前奏一响，全场都是舞者')">复制</button></div>
+      <div class="title-item"><span>随舞实录｜这就是kpop人的条件反射吗</span><button class="copy-mini" onclick="copyText(this,'随舞实录｜这就是kpop人的条件反射吗')">复制</button></div>
+      <div class="title-item"><span>忍住不跳系列（失败版）</span><button class="copy-mini" onclick="copyText(this,'忍住不跳系列（失败版）')">复制</button></div>
+      <div class="sec-label">文案范例</div>
+      <div class="caption-block">
+        <div class="cap-tag">范例一</div>
+        <p>随舞：放到这首<br>我：会！<br>腿：你不会<br>中间那段全是现编的，但气势不能输，最后pose我卡上了✌️<br><br>#小红书舞蹈出道夜 #出道吧校园Dancer @舞蹈薯</p>
+        <div class="btn-row">
+          <button class="btn btn-copy" onclick="copyText(this,'随舞：放到这首\n我：会！\n腿：你不会\n中间那段全是现编的，但气势不能输，最后pose我卡上了✌️\n\n#小红书舞蹈出道夜 #出道吧校园Dancer @舞蹈薯')">复制文案</button>
+          <button class="btn btn-go" onclick="copyAndGo(this,'随舞：放到这首\n我：会！\n腿：你不会\n中间那段全是现编的，但气势不能输，最后pose我卡上了✌️\n\n#小红书舞蹈出道夜 #出道吧校园Dancer @舞蹈薯')">复制并去发布</button>
+        </div>
+      </div>
+      <div class="caption-block">
+        <div class="cap-tag">范例二</div>
+        <p>前奏一响，我看谁能忍住不跳！<br>我就这样在小红书舞蹈出道夜slay全场<br><br>#小红书舞蹈出道夜 #出道吧校园Dancer @舞蹈薯</p>
+        <div class="btn-row">
+          <button class="btn btn-copy" onclick="copyText(this,'前奏一响，我看谁能忍住不跳！\n我就这样在小红书舞蹈出道夜slay全场\n\n#小红书舞蹈出道夜 #出道吧校园Dancer @舞蹈薯')">复制文案</button>
+          <button class="btn btn-go" onclick="copyAndGo(this,'前奏一响，我看谁能忍住不跳！\n我就这样在小红书舞蹈出道夜slay全场\n\n#小红书舞蹈出道夜 #出道吧校园Dancer @舞蹈薯')">复制并去发布</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 角度4 -->
+  <div class="card tab-panel" id="angle4">
+    <div class="card-head">
+      <div class="angle-num">04</div>
+      <div>
+        <h2>舞蹈 challenge & 舞蹈转场</h2>
+        <div class="req">带双话题 #小红书舞蹈出道夜 #出道吧校园Dancer 并 @舞蹈薯</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="sec-label">视频范例（可直接播放）</div>
+      <div class="video-box"><video controls playsinline webkit-playsinline preload="metadata" src="v4.mp4"></video></div>
+      <div class="video-caption">范例：舞蹈转场</div>
+      <div class="video-box" style="margin-top:8px;"><video controls playsinline webkit-playsinline preload="metadata" src="v5.mp4"></video></div>
+      <div class="video-caption">范例：视频+照片一起发</div>
+      <div class="sec-label">怎么拍</div>
+      <div class="tips">
+        <ul>
+          <li><b>舞蹈内容</b>：可以拍相关舞蹈 challenge，或找舞蹈搭子一起合拍</li>
+          <li><b>转场</b>：在不同场景（进场前、打卡区、场馆内）跳同一支舞蹈剪到一起，用舞蹈记录你在小红书舞蹈出道夜的一天</li>
+        </ul>
+      </div>
+      <div class="sec-label">标题范例</div>
+      <div class="title-item"><span>我在小红书舞蹈出道夜C位出道了</span><button class="copy-mini" onclick="copyText(this,'我在小红书舞蹈出道夜C位出道了')">复制</button></div>
+      <div class="title-item"><span>和我一起用舞蹈的形式打开小红书舞蹈出道夜</span><button class="copy-mini" onclick="copyText(this,'和我一起用舞蹈的形式打开小红书舞蹈出道夜')">复制</button></div>
+      <div class="title-item"><span>闪现小红书舞蹈出道夜现场</span><button class="copy-mini" onclick="copyText(this,'闪现小红书舞蹈出道夜现场')">复制</button></div>
+      <div class="sec-label">文案范例</div>
+      <div class="caption-block">
+        <div class="cap-tag">范例一</div>
+        <p>和我一起云游小红书舞蹈出道夜吧<br><br>#小红书舞蹈出道夜 #出道吧校园Dancer @舞蹈薯</p>
+        <div class="btn-row">
+          <button class="btn btn-copy" onclick="copyText(this,'和我一起云游小红书舞蹈出道夜吧\n\n#小红书舞蹈出道夜 #出道吧校园Dancer @舞蹈薯')">复制文案</button>
+          <button class="btn btn-go" onclick="copyAndGo(this,'和我一起云游小红书舞蹈出道夜吧\n\n#小红书舞蹈出道夜 #出道吧校园Dancer @舞蹈薯')">复制并去发布</button>
+        </div>
+      </div>
+      <div class="caption-block">
+        <div class="cap-tag">范例二</div>
+        <p>我在小红书舞蹈出道夜为出道dancer打call<br><br>#小红书舞蹈出道夜 #出道吧校园Dancer @舞蹈薯</p>
+        <div class="btn-row">
+          <button class="btn btn-copy" onclick="copyText(this,'我在小红书舞蹈出道夜为出道dancer打call\n\n#小红书舞蹈出道夜 #出道吧校园Dancer @舞蹈薯')">复制文案</button>
+          <button class="btn btn-go" onclick="copyAndGo(this,'我在小红书舞蹈出道夜为出道dancer打call\n\n#小红书舞蹈出道夜 #出道吧校园Dancer @舞蹈薯')">复制并去发布</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">小红书舞蹈出道夜 · 现场Report补给站<br>记得带上双话题 + @舞蹈薯 再发布哦</div>
+</div>
+
+<div class="publish-bar">
+  <div class="hint">活动结束后<b>24h内</b>发布，瓜分百万流量 🎁</div>
+  <button class="btn-big" onclick="openXHS()">去小红书发布</button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// Tab 切换：点不同角度显示对应内容
+(function(){
+  var links = document.querySelectorAll('.nav a[data-tab]');
+  var panels = document.querySelectorAll('.tab-panel');
+  function showTab(id) {
+    panels.forEach(function(p){ p.style.display = (p.id === id) ? '' : 'none'; });
+    links.forEach(function(a){ a.classList.toggle('on', a.getAttribute('data-tab') === id); });
+    // 切换时暂停其他面板的视频，避免后台继续播放耗流量
+    document.querySelectorAll('.tab-panel video').forEach(function(v){
+      if (v.closest('.tab-panel').id !== id) { try { v.pause(); } catch(e){} }
+    });
+  }
+  links.forEach(function(a){
+    a.addEventListener('click', function(){ showTab(a.getAttribute('data-tab')); });
+  });
+  showTab('angle1');
+})();
+</script>
+<script>
+// 星点装饰：稀疏小光点，模拟海报夜空氛围
+(function(){
+  var box = document.getElementById('stars');
+  var colors = ['rgba(255,255,255,.7)','rgba(190,215,255,.6)','rgba(255,182,193,.55)','rgba(255,212,77,.5)'];
+  for (var i = 0; i < 46; i++) {
+    var s = document.createElement('div');
+    var size = Math.random() * 2.2 + 1;
+    s.style.cssText = 'position:absolute;width:'+size+'px;height:'+size+'px;border-radius:50%;'+
+      'background:'+colors[i % colors.length]+';'+
+      'left:'+(Math.random()*100)+'%;top:'+(Math.random()*100)+'%;'+
+      'opacity:'+(Math.random()*.5+.25)+';';
+    if (i % 3 === 0) {
+      s.style.boxShadow = '0 0 ' + (size*3) + 'px currentColor';
+      s.style.color = colors[i % colors.length];
+      s.style.animation = 'twinkle ' + (2 + Math.random()*3) + 's ease-in-out infinite';
+      s.style.animationDelay = (Math.random()*3)+'s';
+    }
+    box.appendChild(s);
+  }
+  var st = document.createElement('style');
+  st.textContent = '@keyframes twinkle{0%,100%{opacity:.15}50%{opacity:.85}}';
+  document.head.appendChild(st);
+})();
+
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); }, 1800);
+}
+function doCopy(text) {
+  var ta = document.createElement('textarea');
+  ta.value = text.replace(/\\n/g, '\n');
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.focus(); ta.select();
+  var ok = false;
+  try { ok = document.execCommand('copy'); } catch(e) {}
+  document.body.removeChild(ta);
+  if (!ok && navigator.clipboard) {
+    navigator.clipboard.writeText(ta.value).catch(function(){});
+  }
+  return true;
+}
+function copyText(btn, text) {
+  doCopy(text);
+  showToast('✅ 已复制，去小红书直接粘贴');
+}
+function copyAndGo(btn, text) {
+  doCopy(text);
+  showToast('✅ 文案已复制，正在打开小红书…');
+  setTimeout(openXHS, 600);
+}
+function openXHS() {
+  var start = Date.now();
+  var opened = false;
+  var timer = setTimeout(function() {
+    if (!opened && Date.now() - start < 2500 && document.visibilityState !== 'hidden') {
+      window.location.href = 'https://www.xiaohongshu.com';
+    }
+  }, 1800);
+  document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'hidden') { opened = true; clearTimeout(timer); }
+  });
+  window.addEventListener('pagehide', function() { opened = true; clearTimeout(timer); }, { once: true });
+  window.location.href = 'xhsdiscover://item/new_note';
+}
+</script>
+</body>
+</html>
